@@ -37,9 +37,13 @@ module HTML2Markdown
       return '' if node['style'] and node['style'] =~ /display:\s*none/
       # default parse
       case node.name.downcase
-      when 'i'
       when 'script'
       when 'style'
+        result << ' '
+      when 'br'
+        result << "  \n"
+      when 'i', 'em', 'u'
+        result << "_#{contents}_"
       when 'li'
         result << "*#{contents}\n"
       when 'blockquote'
@@ -48,8 +52,8 @@ module HTML2Markdown
         end
       when 'p'
         result << "\n#{contents}\n"
-      when 'strong'
-        result << "**#{contents}**\n"
+      when 'b', 'strong'
+        result << "**#{contents}**"
       when 'h1'
         result << "##{contents}\n"
       when 'h2'
@@ -64,6 +68,15 @@ module HTML2Markdown
         result << "![#{node['alt']}](#{node['src']})"
       when 'a'
         result << "[#{contents}](#{node['href']})"
+      when 'pre', 'code'
+        contents.split(/\n/).size
+        if contents.split(/\n/).size == 1
+          result << "`#{contents}`"
+        else
+          # code detector
+          language = predict_language(contents)
+          result << "\n```#{language}\n#{contents}\n```\n"
+        end
       else
         result << contents unless contents == nil
       end
@@ -75,6 +88,10 @@ module HTML2Markdown
       self.class.send :define_method,"parse_#{name}" do |node,contents|
         block.call node,contents
       end
+    end
+
+    def predict_language(str)
+      ''
     end
 
     def debug
