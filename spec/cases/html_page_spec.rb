@@ -4,21 +4,21 @@ require_relative '../../lib/html2markdown'
 
 describe HTMLPage do
 
-#   it "can convert to markdow format" do
-#     contents = <<-CON
-#     \n<i class=\"pstatus\"> 本帖最后由 aria_lyy 于 2012-3-21 22:22 编辑 </i><br><br><strong>
-#     <font color=\"Navy\"><font size=\"4\"><font size=\"5\">看贴前请先看这儿——如果您不喜欢旅游，
-#     不喜欢自助旅游，不喜欢动点脑筋玩儿的舒坦点，不喜欢花点时间挑选旅行时自己可心儿的衣食住行景，
-#     您就赶紧把这个页面关了吧，不然实在浪费您的时间和国家那所剩无几的电资源</font></font></font></strong>
-#     <br><br><font color=\"Red\"><font size=\"5\">【前言】</font></font><br><br><strong>
-#     <font size=\"4\"><font color=\"Navy\">【关于去旅游和不去旅游的理由】<br>\r\n1.如果你喜欢旅游尤其自助游，却有各种“不能去旅游的理由”请跳转至2、3、4、5、6、7！
-#     <img src=\"images/smilies/default/lol.gif\" smilieid=\"12\" border=\"0\" alt=\"\"> 如果您没有那些讨厌的理由，请跳转至8！
-#     <img src=\"images/smilies/default/loveliness.gif\" smilieid=\"28\" border=\"0\" alt=\"\"><br>\r\n2.如果你认为是钱阻挡了旅游的步伐？LZ也是个工薪阶层，也是每年辛苦工作，攒出旅游的钱；再者说，哪怕只走个国内游，也算开了眼界、见了世面，钱，不是问题，更何况有许多人坚持穷游概念，钱就更不是问题；<br>\r\n3.如果你认为是假期阻挡了旅游的步伐？LZ和内口子每年也只有7天年假，却仍能挤一挤，腾出10天左右的时间去趟国外逍遥一番；再者说，哪怕只是4天的海岛游，也算晒出个富豪脸~别说工作放不下，那是你根本不想去旅游；<br>\r\n4.如果你认为是语言阻挡了旅游的步伐？LZ2006年第一次去意大利、2009年第二次走意大利、走希腊、走法国，2010年去南非、马来西亚，2011年马耳他、意大利、马来西亚，再到今年这趟西班牙，从来！从来从来！没因为二把刀（也就徘徊在国家英语三到四级的边缘）不成句的英语迷路、饿肚子、丢东西丢人、误火车飞机大炮、买不成东西，关键我们去的很多都是非英语国家，经常会出现我们用英语跟别人交流，别人用叽里呱啦的母语跟我们交谈，然后解决一件特别难的大事儿~~GOOD！东特哇瑞，别担心沟通有问题，那不是旅行的重点！<br>\r\n5.没伙伴？不旅行？哇塞，你一定是孤独症患者；<br>\r\n6.爹妈不让？不旅行？哇塞，还是去街心花园吧；<br>\r\n7.懒得查这个那个？你如果愿意点开这个帖子，就说明你根本不懒~</font></font></strong><br><strong><font size=\"5\"><font color=\"DarkRed\">8.那就揣着护照，动身吧！！！！！</font></font></strong>\n
-#     CON
-#     page = HTMLPage.new :contents => contents
-#     markdown = page.to_markdown page.contents
-#     expect(markdown.length).to be > 0
-#   end
+   it "can convert to markdow format" do
+     contents = <<-CON
+     \n<i class=\"pstatus\"> 本帖最后由 aria_lyy 于 2012-3-21 22:22 编辑 </i><br><br><strong>
+     <font color=\"Navy\"><font size=\"4\"><font size=\"5\">看贴前请先看这儿——如果您不喜欢旅游，
+     不喜欢自助旅游，不喜欢动点脑筋玩儿的舒坦点，不喜欢花点时间挑选旅行时自己可心儿的衣食住行景，
+     您就赶紧把这个页面关了吧，不然实在浪费您的时间和国家那所剩无几的电资源</font></font></font></strong>
+     <br><br><font color=\"Red\"><font size=\"5\">【前言】</font></font><br><br><strong>
+     <font size=\"4\"><font color=\"Navy\">【关于去旅游和不去旅游的理由】<br>\r\n1.如果你喜欢旅游尤其自助游，却有各种“不能去旅游的理由”请跳转至2、3、4、5、6、7！
+     <img src=\"images/smilies/default/lol.gif\" smilieid=\"12\" border=\"0\" alt=\"\"> 如果您没有那些讨厌的理由，请跳转至8！
+     <img src=\"images/smilies/default/loveliness.gif\" smilieid=\"28\" border=\"0\" alt=\"\"><br>\r\n2.如果你认为是钱阻挡了旅游的步伐？LZ也是个工薪阶层，也是每年辛苦工作，攒出旅游的钱；再者说，哪怕只走个国内游，也算开了眼界、见了世面，钱，不是问题，更何况有许多人坚持穷游概念，钱就更不是问题；<br>\r\n3.如果你认为是假期阻挡了旅游的步伐？LZ和内口子每年也只有7天年假，却仍能挤一挤，腾出10天左右的时间去趟国外逍遥一番；再者说，哪怕只是4天的海岛游，也算晒出个富豪脸~别说工作放不下，那是你根本不想去旅游；<br>\r\n4.如果你认为是语言阻挡了旅游的步伐？LZ2006年第一次去意大利、2009年第二次走意大利、走希腊、走法国，2010年去南非、马来西亚，2011年马耳他、意大利、马来西亚，再到今年这趟西班牙，从来！从来从来！没因为二把刀（也就徘徊在国家英语三到四级的边缘）不成句的英语迷路、饿肚子、丢东西丢人、误火车飞机大炮、买不成东西，关键我们去的很多都是非英语国家，经常会出现我们用英语跟别人交流，别人用叽里呱啦的母语跟我们交谈，然后解决一件特别难的大事儿~~GOOD！东特哇瑞，别担心沟通有问题，那不是旅行的重点！<br>\r\n5.没伙伴？不旅行？哇塞，你一定是孤独症患者；<br>\r\n6.爹妈不让？不旅行？哇塞，还是去街心花园吧；<br>\r\n7.懒得查这个那个？你如果愿意点开这个帖子，就说明你根本不懒~</font></font></strong><br><strong><font size=\"5\"><font color=\"DarkRed\">8.那就揣着护照，动身吧！！！！！</font></font></strong>\n
+     CON
+     page = HTMLPage.new :contents => contents
+     markdown = page.to_markdown page.contents
+     expect(markdown.length).to be > 0
+   end
 
 #   it "can accept custom parse" do
 #     contents = <<-CON
@@ -101,5 +101,12 @@ TEXT_END
     p = HTMLPage.new :contents => source
 
     expect(p.markdown!).to match(/```/)
+  end
+
+  it "converts nested code" do
+    source = "<li>了解 <code>Groovy</code> 基本语法。</li>"
+    p = HTMLPage.new :contents => source
+
+    expect(p.markdown!).not_to match(/\n/)
   end
 end

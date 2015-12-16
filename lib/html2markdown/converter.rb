@@ -15,7 +15,7 @@ module HTML2Markdown
     # maybe node
     def parse_element(ele)
       if ele.is_a? Nokogiri::XML::Text
-        return "#{ele.text}\n"
+        return "#{ele.text}"
       else
         if (children = ele.children).count > 0 
           return wrap_node(ele,children.map {|ele| parse_element(ele)}.join )
