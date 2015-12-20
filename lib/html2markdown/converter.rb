@@ -68,7 +68,7 @@ module HTML2Markdown
         result << "![#{node['alt']}](#{node['src']})"
       when 'a'
         result << "[#{contents}](#{node['href']})"
-      when 'pre', 'code'
+      when 'pre'
         contents.split(/\n/).size
         if contents.split(/\n/).size == 1
           result << "`#{contents}`"

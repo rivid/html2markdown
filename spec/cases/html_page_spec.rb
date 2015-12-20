@@ -67,24 +67,24 @@ describe HTMLPage do
 #     expect(markdown.length).to be > 0
 #   end
 
-#   it "should have markdown method" do
-#     p = HTMLPage.new :contents => '<strong>haha</strong>'
-#     expect(p.markdown).to  eq('**haha**')
-#     p.contents = '<strong>hehe</strong>'
-#     expect(p.markdown!).to eq('**hehe**')
-#   end
+   it "should have markdown method" do
+     p = HTMLPage.new :contents => '<strong>haha</strong>'
+     expect(p.markdown).to  eq('**haha**')
+     p.contents = '<strong>hehe</strong>'
+     expect(p.markdown!).to eq('**hehe**')
+   end
 
-#   it "can have custom node parse block" do
-#     p = HTMLPage.new :contents => '<strong>haha</strong>'
-#     p.strong do |node,contents|
-#       "strong text : **#{contents}**"
-#     end
-#     expect(p.markdown!).to match(/strong text/)
-#   end
+   it "can have custom node parse block" do
+     p = HTMLPage.new :contents => '<strong>haha</strong>'
+     p.strong do |node,contents|
+       "strong text : **#{contents}**"
+     end
+     expect(p.markdown!).to match(/strong text/)
+   end
 
-#   it 'separates paragraphs like you do' do
-#     expect(HTMLPage.new(contents: '<p>Goodbye</p><p>Hello</p>').markdown).to eq("Goodbye\n\nHello")
-#   end
+   it 'separates paragraphs like you do' do
+     expect(HTMLPage.new(contents: '<p>Goodbye</p><p>Hello</p>').markdown).to eq("Goodbye\n\nHello")
+   end
 
   it "converts pre to code block" do
 source =<<TEXT_END
@@ -108,5 +108,34 @@ TEXT_END
     p = HTMLPage.new :contents => source
 
     expect(p.markdown!).not_to match(/\n/)
+  end
+
+  it "converts nested pre code" do
+    source =<<CODE_TEXT
+<div>
+<pre>
+<code>
+<span class="keyword">autocmd</span> BufRead,BufNewFile *.md <span class="keyword">set</span> <span class="keyword">filetype</span>=markdown
+
+<span class="string">" Spell-check Markdown files
+</span><span class="keyword">autocmd</span> FileType markdown <span class="keyword">setlocal</span> spell
+
+<span class="string">" Spell-check Git messages
+</span><span class="keyword">autocmd</span> FileType gitcommit <span class="keyword">setlocal</span> spell
+
+<span class="string">" Set spellfile to location that is guaranteed to exist,
+  </span><span class="string">" can be symlinked to Dropbox or kept in Git
+</span><span class="string">" and managed outside of thoughtbot/dotfiles using rcm.
+  </span><span class="keyword">set</span> spellfile=$HOME/.<span class="keyword">vim</span>-spell-<span class="keyword">en</span>.utf-<span class="number">8</span>.<span class="built_in">add</span>
+
+<span class="string">" Autocomplete with dictionary words when spell check is on
+</span><span class="keyword">set</span> <span class="built_in">complete</span>+=kspell
+</code>
+</pre>
+</div>"
+CODE_TEXT
+    p = HTMLPage.new :contents => source
+
+    expect(p.markdown!).not_to match(/```\n```/)
   end
 end
